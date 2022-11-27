@@ -683,18 +683,13 @@ void affichageMatrice(Principal *p) {
                     }
                     p->choix = -1;
                 }
-                // si on clique ici on passe au niveau -1
-                if (970 <= p->parametre.event.mouse.x && p->parametre.event.mouse.x <= 970 + 150 &&
-                    480 <= p->parametre.event.mouse.y && p->parametre.event.mouse.y <= 480 + 70) {
-                    p->niveau1 = true;
-                    affichageinfo = false;
-                }
-                    /// si on clique ici on passe au niveau -1
+                /// ici on quitte niveau-1
                     if (p->niveau1 == true && x >= 950 && x <= 1050 && y >= 300 && y <= 350) {
                         p->niveau1 = false;
                         boiteOutilOpen = false;
                         affichageinfo = true;
                     }
+                /// ici on quitte niveau-2
                     if (p->niveau2 == true && x >= 950 && x <= 1050 && y >= 300 && y <= 350) {
                         p->niveau2 = false;
                         boiteOutilOpen = false;
@@ -734,7 +729,7 @@ void affichageMatrice(Principal *p) {
 
                     break;
                     case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-                        if (boiteOutilOpen) {
+                        if (boiteOutilOpen){
                             x = p->parametre.event.mouse.x;
                             y = p->parametre.event.mouse.y;
                             ///Cas ou on clique pour aller a la deuxieme page
@@ -780,17 +775,17 @@ void affichageMatrice(Principal *p) {
                         if (chronometreaffichage >= 0 && chronometreaffichage < 300) {
                             al_draw_bitmap(p->tabfondjeu[0], 0, 0, 0);
                         }
-                    if (chronometreaffichage >= 300 && chronometreaffichage < 450) {
+                    if (chronometreaffichage >= 300 && chronometreaffichage < 600) {
                         al_draw_bitmap(p->tabfondjeu[1], 0, 0, 0);
                     }
-                    if (chronometreaffichage >= 450 && chronometreaffichage < 600) {
+                    if (chronometreaffichage >= 600 && chronometreaffichage < 900) {
                         al_draw_bitmap(p->tabfondjeu[2], 0, 0, 0);
                     }
-                    if (chronometreaffichage >= 600 && chronometreaffichage < 750) {
+                    if (chronometreaffichage >= 900 && chronometreaffichage < 1200) {
                         al_draw_bitmap(p->tabfondjeu[3], 0, 0, 0);
                     }
                     chronometreaffichage++;
-                    if (chronometreaffichage >= 750) {
+                    if (chronometreaffichage >= 1200) {
                         chronometreaffichage = 0;
                     }
                     if (sourisDansMatrice) {
@@ -823,12 +818,14 @@ void affichageMatrice(Principal *p) {
                         al_draw_bitmap(p->bouton_quitter2, 985, 595, 0);
                     }
                     if (p->niveau1) {
+                        affichageinfo=false;
                         dessinerniveau1(p);
                         boiteOutilOpen = false;
                         p->secondePageOutils = false;
                         p->troisiemePageOutils = false;
                     }
                     if (p->niveau2) {
+                        affichageinfo=false;
                         dessinerniveau2(p);
                         boiteOutilOpen = false;
                     }
